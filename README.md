@@ -27,11 +27,7 @@ Activates automatically when you say things like:
 ## Install
 
 ```bash
-mkdir -p ~/.claude/skills/clarify
-curl -o ~/.claude/skills/clarify/SKILL.md \
-  https://raw.githubusercontent.com/77652189/clarify-skill/main/SKILL.md
+npx skills add 77652189/clarify-skill
 ```
-
-Or manually copy `SKILL.md` into `~/.claude/skills/clarify/`.
 
 No restart needed — Claude Code picks up skills automatically.

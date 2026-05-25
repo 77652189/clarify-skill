@@ -1,6 +1,6 @@
 ---
 name: clarify
-description: Before starting any new feature, requirement, or change, ask clarifying questions one at a time to understand scope, acceptance criteria, edge cases, and integration. Trigger when user proposes new work: "我想做X"、"能不能加X"、"我需要X"、"我希望X"、"改一下X"、"优化X"、"修改X", or English equivalents like "I want to add", "can we", "let's change". If the user can't answer a question, explain why it matters and offer options to help them decide. Only proceed to implementation once key questions are resolved, or if the user explicitly says to start.
+description: Before starting any implementation task (new feature, bug fix, refactor, change, optimization), ask clarifying questions one at a time to understand scope, acceptance criteria, edge cases, and integration. Trigger on any hands-on coding task. Skip for pure questions or tasks already fully discussed. If the user can't answer a question, explain why it matters and offer options to help them decide. Only proceed to implementation once key questions are resolved, or if the user explicitly says to start.
 ---
 
 # Clarify
@@ -9,11 +9,9 @@ description: Before starting any new feature, requirement, or change, ask clarif
 
 ## 触发条件
 
-- 用户提出新功能或需求（"我想做X"、"能不能加X"、"我需要X"、"我希望X"）
-- 用户请求改动（"改一下X"、"优化X"、"修改X"）
-- 用户描述一个新的行为或目标
+任何需要动手实现的任务都触发，包括但不限于：新功能、改动、优化、修 bug、重构。
 
-**不触发：** 用户在回答问题、修 bug 的过程中提出的小调整，或已经讨论充分的需求。
+**不触发：** 纯粹的问答（"这段代码是什么意思"）、当前对话中已经充分讨论过的需求、用户明确说"直接做"。
 
 ## 流程
 

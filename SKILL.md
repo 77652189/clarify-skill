@@ -1,32 +1,74 @@
 ---
 name: clarify
-description: Before starting any implementation task (new feature, bug fix, refactor, change, optimization), ask clarifying questions one at a time to understand scope, acceptance criteria, edge cases, and integration. Trigger on any hands-on coding task. Skip for pure questions or tasks already fully discussed. If the user can't answer a question, explain why it matters and offer options to help them decide. Only proceed to implementation once key questions are resolved, or if the user explicitly says to start.
+description: "Debt-prevention clarification for ambiguous or high-risk coding work. Use before implementing when a request may create technical debt: unclear acceptance criteria, architecture or data-model changes, persistence/schema changes, broad refactors, new dependencies, user-facing workflow changes, irreversible file/data operations, compliance-sensitive claims, or when the user says they can only judge outcomes and wants help defining what done means. Do not use for clear bug reports, explicit implementation plans, small scoped UI tweaks, continue doing this, or tasks where enough context already exists to proceed safely."
 ---
 
 # Clarify
 
-当用户提出新需求、新功能或改动时，先问清楚再动手。
+Use this skill as a technical-debt gate, not as a generic conversation blocker.
 
-## 触发条件
+The user often cannot review every implementation detail and mainly validates the final outcome. Protect them by clarifying the decisions that would be expensive to undo, then proceed decisively once the debt risk is bounded.
 
-任何需要动手实现的任务都触发，包括但不限于：新功能、改动、优化、修 bug、重构。
+## Trigger
 
-**不触发：** 纯粹的问答（"这段代码是什么意思"）、当前对话中已经充分讨论过的需求、用户明确说"直接做"。
+Trigger when at least one is true:
 
-## 流程
+- Acceptance is unclear: the request says what to build, but not how the user will know it is done.
+- Scope can grow silently: the change may touch architecture, shared services, data flow, schema, persistent files, auth, deployment, or cross-project conventions.
+- The implementation may add a long-term dependency, new abstraction, background process, hook, automation, generated data format, or migration path.
+- The user asks for optimization, refactor, simplification, redesign, or "make it better" without a concrete target.
+- The user says they are not sure what happened, can only judge the result, or wants Codex to reduce technical debt.
+- The task has safety, compliance, publication, data-loss, or irreversible Git/GitHub risk.
 
-1. **暂停，不写代码** — 先理解，再实现
-2. **逐个提问** — 每次只问一个问题，等用户回答后再问下一个，覆盖：
-   - **范围**：具体要做什么，明确不做什么
-   - **验收标准**：怎样算完成了
-   - **边界**：边界情况、异常输入、约束条件
-   - **集成**：与现有功能的关系，是替换还是新增
-3. **帮用户回答** — 如果用户说"我不确定"或"你觉得呢"，给出 2-3 个具体选项，每个选项说明优势和劣势，让用户基于对比做决定，而不是凭空回答
-4. **确认后推进** — 关键问题解决后，用一句话总结理解，然后开始实现
+Do not trigger when:
 
-## 规则
+- The user provides a clear bug report, stack trace, failing behavior, or reproduction path. Use diagnosis instead.
+- The user gives a concrete plan and says to implement it.
+- The user says "继续做", "直接做", "按这个做", or "先做一版".
+- The task is a small, reversible UI/text/style tweak with obvious acceptance.
+- Prior discussion in the thread already established scope and acceptance.
 
-- 每次只问一个问题
-- 看起来"很简单"的需求也不跳过这个流程
-- 不要穷举所有问题，够用即可推进
-- 用户说"够了，开始吧"或"直接做"时立即停止提问，开始实现
+## Debt Gate
+
+Before coding, identify the smallest missing decision that can prevent debt. Ask at most one question at a time.
+
+Prefer these question types:
+
+- **Outcome:** What should the user be able to see, click, run, or export when this is done?
+- **Boundary:** What should stay out of scope for this change?
+- **Ownership:** Should this live in the current module/project, a shared helper, a skill, a hook, or documentation?
+- **Persistence:** Is this temporary, local-only, repo-tracked, or part of a long-term data/schema/API contract?
+- **Verification:** Which focused command, browser check, output file, health check, or manual workflow proves success?
+- **Debt budget:** Is a quick version acceptable with a documented follow-up, or should the implementation avoid known shortcuts now?
+
+If the user cannot answer, give 2-3 concrete options and recommend one. Include tradeoffs in one sentence each.
+
+## Proceeding Rule
+
+Proceed without more questions once the following are clear enough:
+
+- Intended user-visible outcome.
+- Scope boundary and non-goals.
+- Persistence/ownership decision when relevant.
+- Focused verification signal.
+
+Do not ask every theoretical question. Ask only what changes the implementation path or prevents debt.
+
+## During Implementation
+
+When using this skill, keep a short debt ledger in the final answer:
+
+- **Done:** user-visible result.
+- **Verified:** focused checks run.
+- **Debt avoided:** important shortcut or scope trap that was avoided.
+- **Remaining debt:** any accepted limitation, follow-up, or risk.
+
+If no code is changed, still give the user an acceptance checklist they can use to judge the outcome.
+
+## Rules
+
+- Ask in Chinese unless the user asks otherwise.
+- Keep questions concrete and tied to technical debt.
+- Do not block clear execution with ceremony.
+- Do not turn clarification into a full design document unless the user explicitly asks for a plan.
+- If the user says to proceed, stop asking and implement with the safest reasonable assumptions.
